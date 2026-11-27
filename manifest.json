@@ -1,0 +1,19 @@
+{
+  "name": "SOCIAL SPACE",
+  "short_name": "Social Space",
+  "description": "Connect, share and discover with Social Space.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#1877f2",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

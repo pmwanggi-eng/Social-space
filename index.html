@@ -1,0 +1,637 @@
+cat > index.html <<'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1877f2">
+  <meta name="description" content="SOCIAL SPACE - Your world. Your people. Your space.">
+
+  <title>SOCIAL SPACE</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="images/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- ==================================
+     AUTHENTICATION SCREEN
+=================================== -->
+
+<section id="authScreen" class="auth-screen">
+
+  <div class="auth-logo">
+    <div class="logo-icon">S</div>
+    <h1>SOCIAL <span>SPACE</span></h1>
+    <p>Your world. Your people. Your space.</p>
+  </div>
+
+  <div class="auth-card">
+
+    <!-- LOGIN -->
+
+    <div id="loginForm">
+
+      <h2>Welcome Back!</h2>
+      <p class="auth-subtitle">
+        Log in to your Social Space account.
+      </p>
+
+      <form id="loginFormElement">
+
+        <label>Email address</label>
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          required
+        >
+
+        <label>Password</label>
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button
+          class="primary-btn"
+          type="submit"
+          id="loginBtn"
+        >
+          Log In
+        </button>
+
+      </form>
+
+      <button
+        type="button"
+        class="resend-btn"
+        id="resendEmail"
+      >
+        Resend Confirmation Email
+      </button>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a href="#" id="showSignup">Create Account</a>
+      </p>
+
+    </div>
+
+    <!-- REGISTRATION -->
+
+    <div id="signupForm" class="hidden">
+
+      <h2>Create Account 🚀</h2>
+
+      <p class="auth-subtitle">
+        Join the Social Space community.
+      </p>
+
+      <form id="signupFormElement">
+
+        <label>Full name</label>
+        <input
+          id="signupName"
+          type="text"
+          placeholder="Your full name"
+          maxlength="60"
+          required
+        >
+
+        <label>Username</label>
+        <input
+          id="signupUsername"
+          type="text"
+          placeholder="Choose a username"
+          maxlength="24"
+          required
+        >
+
+        <small class="input-hint">
+          Letters, numbers and underscores only.
+        </small>
+
+        <label>Email address</label>
+        <input
+          id="signupEmail"
+          type="email"
+          placeholder="Your email address"
+          autocomplete="email"
+          required
+        >
+
+        <label>Password</label>
+        <input
+          id="signupPassword"
+          type="password"
+          placeholder="At least 8 characters"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+
+        <label>Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm your password"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+
+        <button
+          class="primary-btn"
+          type="submit"
+          id="signupBtn"
+        >
+          Create My Account
+        </button>
+
+      </form>
+
+      <p class="auth-switch">
+        Already have an account?
+        <a href="#" id="showLogin">Log In</a>
+      </p>
+
+    </div>
+
+    <div
+      id="authMessage"
+      class="auth-message"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+  </div>
+
+  <p class="auth-footer">
+    © 2026 SOCIAL SPACE
+  </p>
+
+</section>
+
+
+<!-- ==================================
+     MAIN SOCIAL SPACE APPLICATION
+=================================== -->
+
+<div id="appShell" class="hidden">
+
+  <!-- TOP HEADER -->
+
+  <header class="topbar">
+
+    <div class="brand">
+      SOCIAL <span>SPACE</span>
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="round-btn"
+        onclick="showSearch()"
+        aria-label="Search"
+      >
+        🔍
+      </button>
+
+      <button
+        class="round-btn"
+        onclick="showNotifications()"
+        aria-label="Notifications"
+      >
+        🔔
+      </button>
+
+      <button
+        class="avatar"
+        id="headerAvatar"
+        onclick="showProfile()"
+        aria-label="My profile"
+      >
+        S
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main>
+
+    <!-- HOME PAGE -->
+
+    <section id="homePage" class="page active">
+
+      <div class="welcome">
+
+        <h2 id="welcomeName">
+          Welcome to Social Space 👋
+        </h2>
+
+        <p>
+          Your world. Your people. Your space.
+        </p>
+
+      </div>
+
+
+      <!-- STORIES -->
+
+      <div class="stories-section">
+
+        <div class="section-heading">
+
+          <h3>Stories</h3>
+
+          <span>See all</span>
+
+        </div>
+
+        <div class="stories">
+
+          <div class="story add-story">
+
+            <div class="story-ring">＋</div>
+
+            <small>Your story</small>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- POST COMPOSER -->
+
+      <div class="composer">
+
+        <div class="composer-top">
+
+          <div class="avatar" id="composerAvatar">
+            S
+          </div>
+
+          <input
+            id="postText"
+            type="text"
+            placeholder="What's on your mind?"
+            maxlength="10000"
+          >
+
+        </div>
+
+        <div class="composer-bottom">
+
+          <button
+            type="button"
+            onclick="showMessage('Photo uploads are coming next!')"
+          >
+            📷 Photo
+          </button>
+
+          <button
+            type="button"
+            onclick="showMessage('Video uploads are coming next!')"
+          >
+            🎥 Video
+          </button>
+
+          <button
+            class="post-btn"
+            type="button"
+            onclick="createPost()"
+          >
+            Post
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- NEWS FEED -->
+
+      <div class="feed-heading">
+
+        <h3>News Feed</h3>
+
+        <button onclick="loadPosts()">
+          Refresh ↻
+        </button>
+
+      </div>
+
+      <div id="feed">
+
+        <div class="empty-state">
+          Loading your news feed...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FRIENDS PAGE -->
+
+    <section id="friendsPage" class="page">
+
+      <h2>Friends 👥</h2>
+
+      <div class="empty-state">
+        Friend connections are coming next.
+      </div>
+
+    </section>
+
+
+    <!-- MESSAGES PAGE -->
+
+    <section id="messagesPage" class="page">
+
+      <h2>Messages 💬</h2>
+
+      <div class="empty-state">
+        Private messaging is coming next.
+      </div>
+
+    </section>
+
+
+    <!-- NOTIFICATIONS PAGE -->
+
+    <section id="notificationsPage" class="page">
+
+      <h2>Notifications 🔔</h2>
+
+      <div class="empty-state">
+        You are all caught up!
+      </div>
+
+    </section>
+
+
+    <!-- ==================================
+         PROFESSIONAL USER PROFILE
+    =================================== -->
+
+    <section id="profilePage" class="page">
+
+      <!-- COVER PHOTO -->
+
+      <div class="profile-cover" id="profileCover">
+
+        <img
+          id="coverImage"
+          alt="Profile cover photo"
+        >
+
+        <button
+          type="button"
+          class="cover-change"
+          onclick="document.getElementById('coverInput').click()"
+        >
+          📷 Change Cover
+        </button>
+
+      </div>
+
+
+      <!-- PROFILE INFORMATION -->
+
+      <div class="profile-main">
+
+        <!-- PROFILE PICTURE -->
+
+        <div class="profile-avatar" id="profileAvatar">
+
+          <span id="profileInitial">S</span>
+
+          <img
+            id="profileAvatarImage"
+            alt="Profile picture"
+          >
+
+        </div>
+
+
+        <button
+          type="button"
+          class="change-photo"
+          onclick="document.getElementById('avatarInput').click()"
+        >
+          📷 Change Profile Picture
+        </button>
+
+
+        <!-- NAME AND USERNAME -->
+
+        <h2 id="profileName">
+          Social Space Member
+        </h2>
+
+        <p id="profileUsername">
+          @username
+        </p>
+
+        <p id="profileEmail"></p>
+
+
+        <!-- BIOGRAPHY -->
+
+        <p id="profileBio" class="profile-bio">
+          Welcome to my Social Space profile.
+        </p>
+
+
+        <!-- HIDDEN IMAGE INPUTS -->
+
+        <input
+          id="avatarInput"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+        >
+
+        <input
+          id="coverInput"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          hidden
+        >
+
+
+        <!-- PROFILE STATISTICS -->
+
+        <div class="profile-stats">
+
+          <div>
+            <strong id="myPostCount">0</strong>
+            <small>Posts</small>
+          </div>
+
+          <div>
+            <strong id="myFriendsCount">0</strong>
+            <small>Friends</small>
+          </div>
+
+          <div>
+            <strong id="myFollowersCount">0</strong>
+            <small>Followers</small>
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE ACTIONS -->
+
+        <div class="profile-edit">
+
+          <button
+            type="button"
+            class="primary-btn"
+            onclick="editProfile()"
+          >
+            ✏️ Edit Profile
+          </button>
+
+          <button
+            type="button"
+            class="logout-btn"
+            onclick="logout()"
+          >
+            Log Out
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEARCH PAGE -->
+
+    <section id="searchPage" class="page">
+
+      <h2>Discover 🔎</h2>
+
+      <input
+        class="search-input"
+        type="search"
+        placeholder="Search people and posts..."
+      >
+
+      <div class="empty-state">
+        Discover the Social Space community.
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ==================================
+       BOTTOM NAVIGATION
+  =================================== -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="nav-item active"
+      onclick="navigate('homePage',this)"
+    >
+      ⌂
+      <small>Home</small>
+    </button>
+
+    <button
+      class="nav-item"
+      onclick="navigate('friendsPage',this)"
+    >
+      ♧
+      <small>Friends</small>
+    </button>
+
+    <button
+      class="nav-item create-nav"
+      onclick="focusComposer()"
+    >
+      ＋
+      <small>Create</small>
+    </button>
+
+    <button
+      class="nav-item"
+      onclick="navigate('messagesPage',this)"
+    >
+      ▤
+      <small>Messages</small>
+    </button>
+
+    <button
+      class="nav-item"
+      onclick="showProfile()"
+    >
+      ♙
+      <small>Profile</small>
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- ==================================
+     TOAST NOTIFICATIONS
+=================================== -->
+
+<div
+  id="toast"
+  class="toast"
+  role="status"
+  aria-live="polite"
+></div>
+
+
+<!-- ==================================
+     JAVASCRIPT CONNECTIONS
+=================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="js/app.js"></script>
+
+
+<!-- PWA SERVICE WORKER -->
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .catch(error => console.error(
+        "Service worker registration failed:", error
+      ));
+  });
+}
+</script>
+
+</body>
+</html>
+EOF
